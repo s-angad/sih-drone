@@ -46,7 +46,7 @@ This document details the REST endpoints, WebSocket telemetry streaming format, 
 
 ## 3. Real-Time Telemetry WebSocket Protocol
 
-**Endpoint:** `ws://127.0.0.1:8000/api/telemetry/ws/{session_id}`
+**Endpoint:** `wss://sih-drone.onrender.com/api/telemetry/ws/{session_id}` (Local fallback: `ws://127.0.0.1:8000/api/telemetry/ws/{session_id}`)
 
 ### Upstream Messages (Client to Backend):
 ```json

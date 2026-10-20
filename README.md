@@ -88,11 +88,13 @@ SkillDrone is a complete, competition-ready diagnostic training and vocational a
 ```
 *(Executes 15 comparative trials across 5 seeds and exports `benchmark_results.json`).*
 
-### Step 3: Start FastAPI Backend Server
+### Step 3: Start FastAPI Backend Server (Or Use Live Cloud Backend)
+- **Live Deployed Cloud Backend:** `https://sih-drone.onrender.com` (API docs: `https://sih-drone.onrender.com/docs`)
+- **Local Dev Server:**
 ```powershell
 & ".\venv\Scripts\python.exe" -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000 --reload
 ```
-*API documentation available at:* `http://localhost:8000/docs`
+*Local API documentation available at:* `http://localhost:8000/docs`
 
 ### Step 4: Start Next.js Frontend
 In a separate terminal:

@@ -16,6 +16,7 @@ import DroneCameraView from "@/components/DroneCameraView";
 import AudioVoicePanel from "@/components/AudioVoicePanel";
 import WorkshopMap from "@/components/WorkshopMap";
 import { audioController } from "@/utils/audioController";
+import { API_BASE_URL, WS_BASE_URL } from "@/lib/api";
 
 export default function VisionPage() {
   const [sessions, setSessions] = useState<any[]>([]);
@@ -41,7 +42,7 @@ export default function VisionPage() {
 
   // Fetch active sessions on mount
   useEffect(() => {
-    fetch("http://localhost:8000/api/sessions")
+    fetch(`${API_BASE_URL}/api/sessions`)
       .then((r) => r.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
@@ -57,12 +58,12 @@ export default function VisionPage() {
   useEffect(() => {
     if (!activeSessionId) return;
 
-    fetch(`http://localhost:8000/api/sessions/${activeSessionId}`)
+    fetch(`${API_BASE_URL}/api/sessions/${activeSessionId}`)
       .then((r) => r.json())
       .then((data) => {
         setSessionData(data);
         if (data.mission_id) {
-          fetch(`http://localhost:8000/api/missions/${data.mission_id}`)
+          fetch(`${API_BASE_URL}/api/missions/${data.mission_id}`)
             .then((r) => r.json())
             .then((m) => setActiveMission(m))
             .catch((e) => console.warn(e));
@@ -79,7 +80,7 @@ export default function VisionPage() {
       wsRef.current.close();
     }
 
-    const ws = new WebSocket(`ws://localhost:8000/api/telemetry/ws/${activeSessionId}`);
+    const ws = new WebSocket(`${WS_BASE_URL}/api/telemetry/ws/${activeSessionId}`);
     wsRef.current = ws;
 
     ws.onopen = () => {
@@ -151,7 +152,7 @@ export default function VisionPage() {
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify({ action: "set_vision_provider", provider }));
     }
-    fetch("http://localhost:8000/api/vision/provider", {
+    fetch(`${API_BASE_URL}/api/vision/provider`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ provider }),
@@ -161,7 +162,7 @@ export default function VisionPage() {
   const handleSnapshotCaptured = (dataUrl: string, metadata: any) => {
     if (!activeSessionId) return;
 
-    fetch(`http://localhost:8000/api/vision/sessions/${activeSessionId}/evidence`, {
+    fetch(`${API_BASE_URL}/api/vision/sessions/${activeSessionId}/evidence`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
