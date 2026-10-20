@@ -1,0 +1,33 @@
+
+# Python virtual environments
+venv/
+.venv/
+
+# Python cache and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node.js and Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Local databases
+skilldrone.db
+*.db-shm
+*.db-wal
+
+# Logs
+*.log
+
+# OS and editor files
+.DS_Store
+Thumbs.db
